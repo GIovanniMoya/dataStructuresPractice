@@ -1,13 +1,22 @@
 #include "hash_table.h"
 #include <iostream>
 
+static int TABLESIZE = 0;
 
-HashEntry::HashEntry(size) {
+HashEntry::HashEntry() {
+  std::cout << "pass an argument to this constructor\n";
+  HashItem();
+}
+
+HashEntry::HashEntry(int size) {
   
-  static int TABLESIZE = size;
-  table = new HashEntry*[TABLESIZE](); /*this will initalize all array index's to NULL*/
+  TABLESIZE = size;
+  HashEntry table = new HashItem[TABLESIZE](); /*this will initalize all array index's to NULL*/
   table.count = 0;
-  return table;
+  std::cout << "test\n";
+}
+
+HashItem::HashItem() {
 }
 
 HashItem::HashItem(char key, char value) {
@@ -20,34 +29,34 @@ HashItem::HashItem(char key, char value) {
 
 /*get and set methods for HashItems*/
 
-HashItem::char getValue() {
-  this->value = value; 
+char HashItem::getValue() {
+  return this->value; 
 }
 
-HashItem::char getKey() {
+char HashItem::getKey() {
   return this->key;
 }
 
-HashItem::void setValue(char value) {
-  this->key = key;
-}
-
-HashItem::void setKey(char key) {
+void HashItem::setValue(char value) {
   this->value = value;
 }
 
+void HashItem::setKey(char key) {
+  this->key = key;
+}
 
 
-HashEntry::hashFunc(char key) {
 
-  hash = (int)key % TABLESIZE;
+int HashEntry::hashFunc(char key) {
+
+  int hash = (int)key % TABLESIZE;
   return hash;
   
 }
 
-HashEntry::insert(char key, char value) {
+void HashEntry::insert(char key, char value) {
 
-  hashIndex = hashFunc(key);
+  int hashIndex = hashFunc(key);
 
   HashItem item = new HashItem(key, value);
 
@@ -62,9 +71,9 @@ HashEntry::insert(char key, char value) {
   }
 }
 
-HashEntry::find(char key) {
+HashEntry HashEntry::find(char key) {
   
-  hashIndex = hashFunc(key);
+  int hashIndex = hashFunc(key);
 
 
   for(int i = 0; i < TABLESIZE; i++) {
@@ -75,7 +84,7 @@ HashEntry::find(char key) {
   }
 }
 
-HashEntry::delete(char key) {
+void HashEntry::remove(char key) {
   delete find(key);
   table.count--;
 }

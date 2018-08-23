@@ -2,34 +2,34 @@
 #define hash_table_h
 
 
-class HashEntry {
-
- private:
-  HashItem table[];
-  
- public:
-  int char;
-  void insert(char key, char value);
-  void delete(char key);
-  int hashFunc(char key);
-  HashEntry find(char key);
-  void resize();
-  HashEntry(size);
-  ~HashEntry
-};
-
 class HashItem {
 
  private:
   char key;
   char value;
   
- pnublic:
+ public:
+  HashItem();
   HashItem(char key, char value);
-  void setKey();
-  void setValue();
+  void setKey(char key);
+  void setValue(char value);
   char getKey();
   char getValue();
+  
 };
 
-#endif hash_table_h
+class HashEntry : public HashItem {
+
+ private:
+  HashItem table[];
+  
+ public:
+  void insert(char key, char value);
+  void remove(char key);
+  int hashFunc(char key);
+  HashItem find(char key);
+  void resize();
+  HashEntry(int size);
+  HashEntry();
+};
+#endif
